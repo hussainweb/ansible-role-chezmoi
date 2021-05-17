@@ -4,15 +4,35 @@ Installs [chezmoi](https://www.chezmoi.io/) on Ubuntu and Debian servers.
 
 ## Requirements
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+If you set the `chezmoi_install_method` to `"snap"`, then the guest needs to have snap installed.
 
 ## Role Variables
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+All the variables are documented in the [`defaults/main.yml`](defaults/main.yml) file.
+
+```yaml
+chezmoi_install_method: "download"
+```
+
+Set this to `"snap"` to install chezmoi using snap. Other package managers are not supported as of right now. If you set this any other value, the role will download either the `deb` or the `rpm` file depending on the OS and install it.
+
+```yaml
+chezmoi_version: ""
+```
+
+Set this to the version you want to install. If left blank, it will detect the latest release from Github and download that. This setting is not used if `chezmoi_install_method` is set to `"snap"`.
+
+**IMPORTANT**: The version MUST be a tag name on Github. For example, `"v2.0.12"` (note the 'v' in the beginning).
+
+```yaml
+chezmoi_init_url: "https://github.com/hussainweb/chezmoi-dotfiles"
+```
+
+Set this to the URL of a repository with chezmoi's dotfiles you want to use. This option is passed as-is to chezmoi, which means you can use all kinds of options that chezmoi supports. For example, if your repo is on Github with the name `dotfiles`, then you can just set this variable to your Github username.
 
 ## Dependencies
 
-None
+Only Ansible's `community.general` collection is required to run this playbook.
 
 ## Example Playbook
 

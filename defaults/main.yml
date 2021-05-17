@@ -1,7 +1,7 @@
 ---
 # Specify how to install chezmoi. If "snap", then snapd is used. For all
 # other values, chezmoi is downloaded from github.
-chezmoi_install_method: "auto"
+chezmoi_install_method: "download"
 
 # Install a specific version only if chezmoi_install_method is not snap.
 # This must be a tag name on Github (e.g. v2.0.12). If blank, latest version
