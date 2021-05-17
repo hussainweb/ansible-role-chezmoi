@@ -1,5 +1,5 @@
 galaxy_info:
-  name: chezmoi
+  role_name: chezmoi
   author: hussainweb
   description: install chezmoi
 
@@ -13,13 +13,19 @@ galaxy_info:
   platforms:
   - name: Ubuntu
     versions:
-    - all
+    - xenial
+    - bionic
+    - focal
+    - groovy
+    - hirsuite
   - name: Debian
     versions:
-    - all
-  - name: CentOS
+    - jessie
+    - stretch
+    - buster
+  - name: Fedora
     versions:
-    - all
+    - 32
 
   galaxy_tags:
     - dotfiles
