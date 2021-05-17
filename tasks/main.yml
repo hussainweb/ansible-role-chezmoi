@@ -1,1 +1,14 @@
 ---
+- name: Install chezmoi via snap
+  community.general.snap:
+    name:
+      - chezmoi
+    classic: yes
+  when: chezmoi_install_method == "snap"
+
+- name: Install chezmoi using a package
+  import_tasks: download-chezmoi.yml
+  when: chezmoi_install_method != "snap"
+
+# TODO: Check if chezmoi is already initialized
+# If not, initialize with the init url.

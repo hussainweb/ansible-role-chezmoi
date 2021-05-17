@@ -1,0 +1,36 @@
+---
+- name: check latest chezmoi
+  block:
+    - name: Find latest releases
+      uri:
+        url: https://api.github.com/repos/twpayne/chezmoi/releases/latest
+        return_content: true
+      register: chezmoi_release_output
+    - name: Set version
+      set_fact:
+        chezmoi_version: "{{ chezmoi_release_output.json.tag_name }}"
+  when: chezmoi_version == ""
+
+- name: Check if chezmoi is already installed
+  command: chezmoi --version
+  register: chezmoi_version_output
+  ignore_errors: yes
+  changed_when: false
+
+- name: Determine if we should install chezmoi
+  set_fact:
+    chezmoi_install: "{{ chezmoi_version_output.rc == 2 or not(chezmoi_version in chezmoi_version_output.stdout) }}"
+
+- block:
+    - name: "Download chezmoi {{ chezmoi_version }}"
+      get_url:
+        url: "https://github.com/twpayne/chezmoi/releases/download/{{ chezmoi_version }}/chezmoi_{{ chezmoi_version | regex_replace('^v', '') }}_linux_{{ chezmoi_debian_architectures[ansible_architecture] }}.deb"
+        dest: ~/chezmoi.deb
+    - name: Install chezmoi
+      apt:
+        deb: ~/chezmoi.deb
+    - name: Cleanup
+      ansible.builtin.file:
+        path: ~/chezmoi.deb
+        state: absent
+  when: chezmoi_install

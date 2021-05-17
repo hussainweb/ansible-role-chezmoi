@@ -1,2 +1,12 @@
 ---
-# defaults file for ansible-role-chezmoi
+# Specify how to install chezmoi. If "snap", then snapd is used. For all
+# other values, chezmoi is downloaded from github.
+chezmoi_install_method: "auto"
+
+# Install a specific version only if chezmoi_install_method is not snap.
+# This must be a tag name on Github (e.g. v2.0.12). If blank, latest version
+# is installed.
+chezmoi_version: ""
+
+# Run chezmoi init with a given URL. You can also specify a Github username.
+chezmoi_init_url: "https://github.com/hussainweb/chezmoi-dotfiles"
