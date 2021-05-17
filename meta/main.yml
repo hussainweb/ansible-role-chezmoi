@@ -17,6 +17,9 @@ galaxy_info:
   - name: Debian
     versions:
     - all
+  - name: CentOS
+    versions:
+    - all
 
   galaxy_tags:
     - dotfiles

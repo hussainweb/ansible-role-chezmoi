@@ -17,20 +17,18 @@
   ignore_errors: yes
   changed_when: false
 
-- name: Determine if we should install chezmoi
-  set_fact:
+- set_fact:
     chezmoi_install: "{{ chezmoi_version_output.rc == 2 or not(chezmoi_version in chezmoi_version_output.stdout) }}"
+    chezmoi_version_filtered: "{{ chezmoi_version | regex_replace('^v', '') }}"
 
-- block:
-    - name: "Download chezmoi {{ chezmoi_version }}"
-      get_url:
-        url: "https://github.com/twpayne/chezmoi/releases/download/{{ chezmoi_version }}/chezmoi_{{ chezmoi_version | regex_replace('^v', '') }}_linux_{{ chezmoi_debian_architectures[ansible_architecture] }}.deb"
-        dest: ~/chezmoi.deb
-    - name: Install chezmoi
-      apt:
-        deb: ~/chezmoi.deb
-    - name: Cleanup
-      ansible.builtin.file:
-        path: ~/chezmoi.deb
-        state: absent
-  when: chezmoi_install
+- name: "Install chezmoi {{ chezmoi_version }} (deb)"
+  apt:
+    deb: "https://github.com/twpayne/chezmoi/releases/download/{{ chezmoi_version }}/chezmoi_{{ chezmoi_version_filtered }}_linux_{{ chezmoi_debian_architectures[ansible_architecture] }}.deb"
+  when: chezmoi_install and ansible_facts['os_family'] == 'Debian'
+
+- name: "Install chezmoi {{ chezmoi_version }} (rpm)"
+  yum:
+    name: "https://github.com/twpayne/chezmoi/releases/download/{{ chezmoi_version }}/chezmoi-{{ chezmoi_version_filtered }}-{{ chezmoi_redhat_architectures[ansible_architecture] }}.rpm"
+    state: present
+    disable_gpg_check: yes  # GPG check fails for some reason.
+  when: chezmoi_install and ansible_facts['os_family'] == 'RedHat'

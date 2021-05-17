@@ -4,6 +4,9 @@ dependency:
 driver:
   name: docker
 platforms:
+  - name: instance-centos
+    image: docker.io/pycontribs/centos:8
+    pre_build_image: true
   - name: instance-debian
     image: docker.io/pycontribs/debian:latest
     pre_build_image: true
