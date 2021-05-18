@@ -1,0 +1,16 @@
+---
+- name: Prepare
+  hosts: all
+  tasks:
+    - name: Install git (debian)
+      apt:
+        pkg: git
+        update_cache: yes
+        state: present
+      when: ansible_facts['os_family'] == "Debian"
+    - name: Install git (redhat)
+      yum:
+        name: git
+        update_cache: yes
+        state: present
+      when: ansible_facts['os_family'] == "RedHat"

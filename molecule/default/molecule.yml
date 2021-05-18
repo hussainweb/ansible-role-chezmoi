@@ -7,14 +7,8 @@ lint: |
   yamllint .
   ansible-lint
 platforms:
-  - name: instance-centos
-    image: docker.io/pycontribs/centos:8
-    pre_build_image: true
-  - name: instance-debian
-    image: docker.io/pycontribs/debian:latest
-    pre_build_image: true
-  - name: instance-ubuntu
-    image: docker.io/pycontribs/ubuntu:latest
+  - name: instance
+    image: geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu2004}-ansible:latest
     pre_build_image: true
 provisioner:
   name: ansible
