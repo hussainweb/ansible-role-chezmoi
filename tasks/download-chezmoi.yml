@@ -17,7 +17,8 @@
   ignore_errors: yes
   changed_when: false
 
-- set_fact:
+- name: Determine chezmoi version and other variables
+  set_fact:
     chezmoi_install: "{{ chezmoi_version_output.rc == 2 or not(chezmoi_version in chezmoi_version_output.stdout) }}"
     chezmoi_version_filtered: "{{ chezmoi_version | regex_replace('^v', '') }}"
 
