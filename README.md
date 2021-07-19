@@ -22,13 +22,15 @@ chezmoi_version: ""
 
 Set this to the version you want to install. If left blank, it will detect the latest release from Github and download that. This setting is not used if `chezmoi_install_method` is set to `"snap"`.
 
-**IMPORTANT**: The version MUST be a tag name on Github. For example, `"v2.0.12"` (note the 'v' in the beginning).
+**IMPORTANT**: The version MUST be a tag name on Github. For example, `"v2.1.2"` (note the 'v' in the beginning).
 
 ```yaml
-chezmoi_init_url: "https://github.com/hussainweb/chezmoi-dotfiles"
+chezmoi_init_url: ""
 ```
 
 Set this to the URL of a repository with chezmoi's dotfiles you want to use. This option is passed as-is to chezmoi, which means you can use all kinds of options that chezmoi supports. For example, if your repo is on Github with the name `dotfiles`, then you can just set this variable to your Github username.
+
+If you don't set this variable, then `chezmoi init` will be run without any options.
 
 ## Dependencies
 

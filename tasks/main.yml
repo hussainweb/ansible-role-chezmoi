@@ -10,5 +10,11 @@
   import_tasks: download-chezmoi.yml
   when: chezmoi_install_method != "snap"
 
-# TODO: Check if chezmoi is already initialized
-# If not, initialize with the init url.
+- name: Initialize chezmoi (empty)
+  command: "chezmoi init"
+  when: not chezmoi_init_url
+
+- name: Initialize chezmoi
+  command: "chezmoi init --apply --verbose {{ chezmoi_init_url }}"
+  when: chezmoi_init_url
+  changed_when: false

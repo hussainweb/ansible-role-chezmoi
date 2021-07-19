@@ -13,9 +13,10 @@ jobs:
     strategy:
       matrix:
         distro:
-          - centos8
           - debian10
           - ubuntu2004
+          - fedora33
+          - fedora34
 
     steps:
       - name: Check out the codebase.

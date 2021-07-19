@@ -13,3 +13,11 @@
       that:
         - "chezmoi_version_output.rc == 0"
         - "'chezmoi' in chezmoi_version_output.stdout"
+
+  - name: Check if chezmoi completion scripts are present
+    stat:
+      path: ~/.config/fish/completions/chezmoi.fish
+    register: stat_result
+  - name: Assert that the file exists
+    assert:
+      that: "stat_result.stat.exists"
