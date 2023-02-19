@@ -4,20 +4,20 @@
   gather_facts: false
   tasks:
   - name: Run chezmoi
-    command: "chezmoi --version"
+    ansible.builtin.command: "chezmoi --version"
     register: chezmoi_version_output
     changed_when: false
 
   - name: Assert that chezmoi ran without error
-    assert:
+    ansible.builtin.assert:
       that:
         - "chezmoi_version_output.rc == 0"
         - "'chezmoi' in chezmoi_version_output.stdout"
 
   - name: Check if chezmoi completion scripts are present
-    stat:
+    ansible.builtin.stat:
       path: ~/.config/fish/completions/chezmoi.fish
     register: stat_result
   - name: Assert that the file exists
-    assert:
+    ansible.builtin.assert:
       that: "stat_result.stat.exists"

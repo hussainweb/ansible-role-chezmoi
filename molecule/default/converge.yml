@@ -3,7 +3,7 @@
   hosts: all
   tasks:
     - name: "Include ansible-role-chezmoi"
-      include_role:
+      ansible.builtin.include_role:
         name: "ansible-role-chezmoi"
       vars:
         chezmoi_init_url: "https://github.com/hussainweb/chezmoi-dotfiles"
