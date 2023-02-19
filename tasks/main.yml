@@ -13,8 +13,11 @@
 - name: Initialize chezmoi (empty)
   ansible.builtin.command: "chezmoi init"
   when: not chezmoi_init_url
+  args:
+    creates: "~/.local/share/chezmoi"
 
 - name: Initialize chezmoi
   ansible.builtin.command: "chezmoi init --apply --verbose {{ chezmoi_init_url }}"
   when: chezmoi_init_url
-  changed_when: false
+  args:
+    creates: "~/.local/share/chezmoi"
