@@ -7,14 +7,17 @@
   when: chezmoi_install_method == "snap"
 
 - name: Install chezmoi using a package
-  import_tasks: download-chezmoi.yml
+  ansible.builtin.import_tasks: download-chezmoi.yml
   when: chezmoi_install_method != "snap"
 
 - name: Initialize chezmoi (empty)
-  command: "chezmoi init"
+  ansible.builtin.command: "chezmoi init"
   when: not chezmoi_init_url
+  args:
+    creates: "~/.local/share/chezmoi"
 
 - name: Initialize chezmoi
-  command: "chezmoi init --apply --verbose {{ chezmoi_init_url }}"
+  ansible.builtin.command: "chezmoi init --apply --verbose {{ chezmoi_init_url }}"
   when: chezmoi_init_url
-  changed_when: false
+  args:
+    creates: "~/.local/share/chezmoi"
