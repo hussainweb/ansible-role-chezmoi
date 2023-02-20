@@ -10,7 +10,7 @@ jobs:
   test:
     name: Molecule
     runs-on: ubuntu-latest
-    continue-on-error: ${{ matrix.chezmoi_version == "" }}
+    continue-on-error: ${{ matrix.unreliable }}
     strategy:
       matrix:
         distro:
@@ -20,11 +20,12 @@ jobs:
           - ubuntu2004
           - fedora37
           - fedora36
-        chezmoi_version:
-          - "v2.31.0"
+        chezmoi_version: ["v2.31.0"]
+        unreliable: [false]
         include:
           - distro: ubuntu2204
             chezmoi_version: ""
+            unreliable: true
 
     steps:
       - name: Check out the codebase.
