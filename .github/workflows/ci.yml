@@ -10,6 +10,7 @@ jobs:
   test:
     name: Molecule
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.unreliable }}
     strategy:
       matrix:
         distro:
@@ -19,6 +20,12 @@ jobs:
           - ubuntu2004
           - fedora37
           - fedora36
+        chezmoi_version: ["v2.31.0"]
+        unreliable: [false]
+        include:
+          - distro: ubuntu2204
+            chezmoi_version: ""
+            unreliable: true
 
     steps:
       - name: Check out the codebase.
@@ -38,3 +45,4 @@ jobs:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTRO: ${{ matrix.distro }}
+          CHEZMOI_VERSION: ${{ matrix.chezmoi_version }}
