@@ -24,12 +24,12 @@
 
 - name: "Install (deb) chezmoi {{ chezmoi_version }}"
   ansible.builtin.apt:
-    deb: "https://github.com/twpayne/chezmoi/releases/download/{{ chezmoi_version }}/chezmoi_{{ chezmoi_version_filtered }}_linux_{{ chezmoi_debian_architectures[ansible_architecture] }}.deb"
+    deb: "https://github.com/twpayne/chezmoi/releases/download/v{{ chezmoi_version }}/chezmoi_{{ chezmoi_version_filtered }}_linux_{{ chezmoi_debian_architectures[ansible_architecture] }}.deb"
   when: chezmoi_install and ansible_facts['os_family'] == 'Debian'
 
 - name: "Install (rpm) chezmoi {{ chezmoi_version }}"
   ansible.builtin.yum:
-    name: "https://github.com/twpayne/chezmoi/releases/download/{{ chezmoi_version }}/chezmoi-{{ chezmoi_version_filtered }}-{{ chezmoi_redhat_architectures[ansible_architecture] }}.rpm"
+    name: "https://github.com/twpayne/chezmoi/releases/download/v{{ chezmoi_version }}/chezmoi-{{ chezmoi_version_filtered }}-{{ chezmoi_redhat_architectures[ansible_architecture] }}.rpm"
     state: present
     disable_gpg_check: yes  # GPG check fails for some reason.
   when: chezmoi_install and ansible_facts['os_family'] == 'RedHat'
