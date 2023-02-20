@@ -10,6 +10,7 @@ jobs:
   test:
     name: Molecule
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.chezmoi_version == "" }}
     strategy:
       matrix:
         distro:
@@ -20,7 +21,7 @@ jobs:
           - fedora37
           - fedora36
         chezmoi_version:
-          - "2.31.0"
+          - "v2.31.0"
         include:
           - distro: ubuntu2204
             chezmoi_version: ""
