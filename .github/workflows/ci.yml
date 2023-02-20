@@ -19,6 +19,11 @@ jobs:
           - ubuntu2004
           - fedora37
           - fedora36
+        chezmoi_version:
+          - "2.31.0"
+        include:
+          - distro: ubuntu2204
+            chezmoi_version: ""
 
     steps:
       - name: Check out the codebase.
@@ -38,3 +43,4 @@ jobs:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTRO: ${{ matrix.distro }}
+          CHEZMOI_VERSION: ${{ matrix.chezmoi_version }}
