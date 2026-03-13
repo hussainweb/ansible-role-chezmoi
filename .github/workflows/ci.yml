@@ -22,6 +22,8 @@ jobs:
           - debian12
           - ubuntu2404
           - ubuntu2204
+          - rockylinux10
+          - rockylinux9
         chezmoi_version: ["v2.70.0"]
         unreliable: [false]
         include:

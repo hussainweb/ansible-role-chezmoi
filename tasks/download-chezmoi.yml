@@ -34,7 +34,7 @@
   become: true
 
 - name: "Install (rpm) chezmoi v{{ chezmoi_version_filtered }}"
-  ansible.builtin.yum:
+  ansible.builtin.dnf:
     name: "https://github.com/twpayne/chezmoi/releases/download/v{{ chezmoi_version_filtered }}/chezmoi-{{ chezmoi_version_filtered }}-{{ chezmoi_redhat_architectures[ansible_facts['architecture']] }}.rpm"
     state: present
     disable_gpg_check: yes  # GPG check fails for some reason.
