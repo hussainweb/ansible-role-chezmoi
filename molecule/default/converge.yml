@@ -1,10 +1,8 @@
 ---
 - name: Converge
   hosts: all
-  tasks:
-    - name: "Include hussainweb.chezmoi"
-      ansible.builtin.include_role:
-        name: "hussainweb.chezmoi"
-      vars:
-        chezmoi_init_url: "https://github.com/hussainweb/ansible-test-chezmoi"
-        chezmoi_version: "{{ lookup('ansible.builtin.env', 'CHEZMOI_VERSION')|default('') }}"
+  roles:
+    - role: hussainweb.chezmoi
+  vars:
+    chezmoi_init_url: "https://github.com/hussainweb/ansible-test-chezmoi"
+    chezmoi_version: "{{ lookup('ansible.builtin.env', 'CHEZMOI_VERSION') | default('', true) }}"

@@ -1,6 +1,9 @@
 ---
+role_name_check: 1
 dependency:
   name: galaxy
+  options:
+    ignore-errors: true
 driver:
   name: docker
 lint: |
@@ -8,9 +11,12 @@ lint: |
   ansible-lint
 platforms:
   - name: instance
-    image: geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu2404}-ansible:latest
+    image: "geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu2404}-ansible:latest"
     pre_build_image: true
 provisioner:
   name: ansible
+  config_options:
+    defaults:
+      remote_tmp: /tmp/.ansible/tmp
 verifier:
   name: ansible
