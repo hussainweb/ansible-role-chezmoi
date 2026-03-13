@@ -18,12 +18,14 @@ jobs:
     strategy:
       matrix:
         distro:
-          - debian11
+          - debian13
+          - debian12
+          - ubuntu2404
           - ubuntu2204
-        chezmoi_version: ["v2.31.0"]
+        chezmoi_version: ["v2.70.0"]
         unreliable: [false]
         include:
-          - distro: ubuntu2204
+          - distro: ubuntu2404
             chezmoi_version: ""
             unreliable: true
 
