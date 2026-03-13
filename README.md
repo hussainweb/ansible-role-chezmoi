@@ -1,55 +1,71 @@
-# Ansible Chezmoi
+# Ansible Role: chezmoi
 
-Installs [chezmoi](https://www.chezmoi.io/) on Ubuntu and Debian servers.
+[![Molecule CI](https://github.com/hussainweb/ansible-role-chezmoi/actions/workflows/ci.yml/badge.svg)](https://github.com/hussainweb/ansible-role-chezmoi/actions/workflows/ci.yml)
+
+Ansible role to install [chezmoi](https://www.chezmoi.io/) and optionally initialize it with a source repository.
 
 ## Requirements
 
-If you set the `chezmoi_install_method` to `"snap"`, then the guest needs to have snap installed.
+This role requires the `community.general` collection to be installed. You can install it with:
+
+```bash
+ansible-galaxy collection install community.general
+```
+
+## Supported Operating Systems
+
+- Ubuntu 22.04 (Jammy)
+- Ubuntu 24.04 (Noble)
+- Debian 12 (Bookworm)
+- Debian 13 (Trixie)
 
 ## Role Variables
 
-All the variables are documented in the [`defaults/main.yml`](defaults/main.yml) file.
+Available variables are listed below, along with default values (see `defaults/main.yml`):
 
-```yaml
-chezmoi_install_method: "download"
-```
+### `chezmoi_install_method`
 
-Set this to `"snap"` to install chezmoi using snap. Other package managers are not supported as of right now. If you set this any other value, the role will download either the `deb` or the `rpm` file depending on the OS and install it.
+Specify how to install chezmoi. If `"snap"`, then snapd is used (requires `snapd` to be present on the host). For all other values, the binary is downloaded directly from GitHub releases.
 
-```yaml
-chezmoi_version: ""
-```
+- **Default**: `"download"`
 
-Set this to the version you want to install. If left blank, it will detect the latest release from Github and download that. This setting is not used if `chezmoi_install_method` is set to `"snap"`.
+### `chezmoi_version`
 
-**IMPORTANT**: The version MUST be a tag name on Github. For example, `"v2.1.2"` (note the 'v' in the beginning).
+The specific version of chezmoi to install. If left blank, it will automatically detect and install the latest release from GitHub. This setting is ignored if `chezmoi_install_method` is set to `"snap"`.
 
-```yaml
-chezmoi_init_url: ""
-```
+- **Default**: `""` (latest)
 
-Set this to the URL of a repository with chezmoi's dotfiles you want to use. This option is passed as-is to chezmoi, which means you can use all kinds of options that chezmoi supports. For example, if your repo is on Github with the name `dotfiles`, then you can just set this variable to your Github username.
+### `chezmoi_init_url`
 
-If you don't set this variable, then `chezmoi init` will be run without any options.
+A URL or GitHub username to use for `chezmoi init`. If provided, this will initialize chezmoi with the specified dotfiles repository.
 
-## Dependencies
-
-Only Ansible's `community.general` collection is required to run this playbook.
+- **Default**: `""`
 
 ## Example Playbook
 
-WIP.
+### Basic installation
 
 ```yaml
-- hosts: servers
+- hosts: all
   roles:
-    - { role: hussainweb.chezmoi, chezmoi_init_url: "github_username" }
+    - role: hussainweb.chezmoi
+```
+
+### Install a specific version and initialize with dotfiles
+
+```yaml
+- hosts: all
+  roles:
+    - role: hussainweb.chezmoi
+      vars:
+        chezmoi_version: "v2.31.0"
+        chezmoi_init_url: "hussainweb"
 ```
 
 ## License
 
-[MIT](LICENSE)
+MIT
 
 ## Author Information
 
-[Read more about me](https://github.com/hussainweb).
+This role was created by [Hussainweb](https://github.com/hussainweb).
