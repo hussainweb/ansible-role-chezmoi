@@ -2,9 +2,9 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: "Include ansible-role-chezmoi"
+    - name: "Include hussainweb.chezmoi"
       ansible.builtin.include_role:
-        name: "ansible-role-chezmoi"
+        name: "hussainweb.chezmoi"
       vars:
         chezmoi_init_url: "https://github.com/hussainweb/ansible-test-chezmoi"
         chezmoi_version: "{{ lookup('ansible.builtin.env', 'CHEZMOI_VERSION')|default('') }}"
