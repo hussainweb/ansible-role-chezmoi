@@ -18,6 +18,8 @@ ansible-galaxy collection install community.general
 - Ubuntu 24.04 (Noble)
 - Debian 12 (Bookworm)
 - Debian 13 (Trixie)
+- Rocky Linux 9
+- Rocky Linux 10
 
 ## Role Variables
 
