@@ -15,11 +15,7 @@ jobs:
       matrix:
         distro:
           - debian11
-          - debian10
           - ubuntu2204
-          - ubuntu2004
-          - fedora37
-          - fedora36
         chezmoi_version: ["v2.31.0"]
         unreliable: [false]
         include:
