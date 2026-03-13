@@ -19,7 +19,7 @@
 - name: Check if chezmoi is already installed
   ansible.builtin.command: chezmoi --version
   register: chezmoi_version_output
-  ignore_errors: true
+  failed_when: chezmoi_version_output.rc not in [0, 2]
   changed_when: false
 
 - name: Determine chezmoi version and other variables
