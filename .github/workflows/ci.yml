@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ main ]
 
+defaults:
+  run:
+    working-directory: 'hussainweb.chezmoi'
+
 jobs:
   test:
     name: Molecule
@@ -26,6 +30,8 @@ jobs:
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v4
+        with:
+          path: 'hussainweb.chezmoi'
 
       - name: Set up Python 3.
         uses: actions/setup-python@v5
@@ -33,7 +39,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install test dependencies.
-        run: pip3 install ansible molecule molecule-plugins[docker] yamllint ansible-lint
+        run: pip3 install ansible molecule[docker] yamllint ansible-lint
 
       - name: Run Molecule tests.
         run: molecule test
